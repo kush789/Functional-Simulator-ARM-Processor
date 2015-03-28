@@ -33,34 +33,33 @@ typedef struct _armsimvar{
     
     //Register file, r15 -> PC
 
-    uint64_t R[16];
+    int64_t R[16];
 
     //flags
 
-    int N,C,V,Z;
+    uint8_t N,C,V,Z;
 
     //memory
 
-    uint8_t MEM_HEAP[4000];    // heap (dynamic allocation)
-    uint8_t MEM_STAK[4000];    // stack
+    int8_t MEM_HEAP[4000];    // heap (dynamic allocation)
+    int8_t MEM_STAK[4000];    // stack
     uint8_t MEM_INST[4000];    // instruction memory
 
     // intermediate datapath and control path signals
 
     uint64_t instruction_word;
-    uint64_t operand1;
-    uint64_t operand2;
-    uint64_t register1;
-    uint64_t register2;
-    uint64_t register_dest;
+    int64_t operand1;
+    int64_t operand2;
+    uint8_t register1;
+    uint8_t register2;
+    uint8_t register_dest;
 
     // required for decoding
 
-    uint64_t condition;
-    uint64_t is_arth;
-    uint64_t opcode;
-    uint64_t shift;
-    uint64_t immediate;
+    uint8_t condition;
+    uint8_t is_arth;
+    uint8_t opcode;
+    uint8_t immediate;
 
 } armsimvariables;
 
