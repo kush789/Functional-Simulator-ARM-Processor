@@ -25,30 +25,29 @@
     Copyright (C) 2015 Lohitaksh Parmar ; lohitaksh14059@iiitd.ac.in
 
 ******************************************************************************/
-    
-/* myARMSim.h
-   Purpose of this file: Header file for myARMSim
+
+/* main.cpp 
+   Purpose of this file: The file handles the input and output, and
+   invokes the simulator
 */
 
-void run_armsim();
-void reset_proc();
-void load_program_memory(char* file_name);
-void write_data_memory();
-void swi_exit();
+#include "myARMSim.h"
+#include <stdio.h>
+#include <stdlib.h>
 
+int main(int argc, char** argv) {
+  char* prog_mem_file; 
+  if(argc < 2) {
+    printf("Incorrect number of arguments. Please invoke the simulator \n\t./myARMSim <input mem file> \n");
+    exit(1);
+  }
+  
+  //reset the processor
+  reset_proc();
+  //load the program memory
+  load_program_memory(argv[1]);
+  //run the simulator
+  run_armsim();
 
-//reads from the instruction memory and updates the instruction register
-void fetch();
-//reads the instruction register, reads operand1, operand2 fromo register file, decides the operation to be performed in execute stage
-void decode();
-//executes the ALU operation based on ALUop
-void execute();
-//perform the memory operation
-void mem();
-//writes the results back to register file
-void write_back();
-
-
-int read_word(char *mem, unsigned int address);
-void write_word(char *mem, unsigned int address, unsigned int data);
-
+  return 1;
+}

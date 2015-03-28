@@ -1,24 +1,38 @@
+/*=============================================================================
 
-/* 
+    This file is part of the Functional Simulator for ARM Processor. It was 
+    developed as a part of Computer Architecture Course CS112 offered at 
+    IIIT Delhi. 
 
-The project is developed as part of Computer Architecture class
-Project Name: Functional Simulator for subset of ARM Processor
+    This is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-Developer's Name:
-Developer's Email id:
-Date: 
+    It is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-*/
+    You should have received a copy of the GNU General Public License
+    along with FLINT; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
+=============================================================================*/
+/******************************************************************************
 
-/* myARMSim.cpp
-   Purpose of this file: implementation file for myARMSim
+    Copyright (C) 2015 Kushagra Singh ; kushagra14056@iiitd.ac.in
+    Copyright (C) 2015 Lohitaksh Parmar ; lohitaksh14059@iiitd.ac.in
+
+******************************************************************************/
+
+/* myARMSim.h
+   Purpose of this file: Implementation file for myARMSim
 */
 
 #include "myARMSim.h"
 #include <stdlib.h>
 #include <stdio.h>
-
 
 //Register file
 static unsigned int R[16];
