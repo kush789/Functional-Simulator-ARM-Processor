@@ -27,21 +27,29 @@
     Purpose of this file: Implementation file for myARMSim
 */
 
-#include "myARMSim.h"
+#include "../include/myARMSim.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 //Register file
-static unsigned int R[16];
+
+static unsigned long int R[16];
+
 //flags
+
 static int N,C,V,Z;
+
 //memory
-static unsigned char MEM[4000];
+
+static unsigned char MEM_HEAP[4000];    // heap (dynamic allocation)
+static unsigned char MEM_STAK[4000];    // stack
+static unsigned char MEM_INST[4000];    // instruction memory
 
 //intermediate datapath and control path signals
-static unsigned int instruction_word;
-static unsigned int operand1;
-static unsigned int operand2;
+
+static unsigned long int instruction_word;
+static unsigned long int operand1;
+static unsigned long int operand2;
 
 
 void run_armsim() {
@@ -55,7 +63,8 @@ void run_armsim() {
 }
 
 // it is used to set the reset values
-//reset all registers and memory content to 0
+// reset all registers and memory content to 0
+
 void reset_proc() 
 {
     int i;
@@ -63,30 +72,39 @@ void reset_proc()
     for (i = 0; i < 16; i++)        //Resting registers
         R[i] = 0;
 
-    for (i = 0; i < 4000; i++)      //Reseting memory
-        MEM[i] = 0;
+    for (i = 0; i < 4000; i++)      //Reseting instruction memory
+        MEM_INST[i] = 0;
+
+    for (i = 0; i < 4000; i++)      //Reseting stack memory
+        MEM_STAK[i] = 0;
+
+    for (i = 0; i < 4000; i++)      //Reseting heap memory
+        MEM_HEAP[i] = 0;
 }
 
-//load_program_memory reads the input memory, and pupulates the instruction 
-// memory
+// load_program_memory reads the input memory, and pupulates the instruction memory
+
 void load_program_memory(char *file_name) {
   FILE *fp;
-  unsigned int address, instruction;
+  unsigned long int address, instruction;
   fp = fopen(file_name, "r");
   if(fp == NULL) {
     printf("Error opening input mem file\n");
     exit(1);
   }
+
   while(fscanf(fp, "%x %x", &address, &instruction) != EOF) {
-    write_word(MEM, address, instruction);
+    write_word(MEM_INST, address, instruction);
   }
+
   fclose(fp);
 }
 
 //writes the data memory in "data_out.mem" file
+
 void write_data_memory() {
   FILE *fp;
-  unsigned int i;
+  unsigned long int i;
   fp = fopen("data_out.mem", "w");
   if(fp == NULL) {
     printf("Error opening dataout.mem file for writing\n");
@@ -94,12 +112,13 @@ void write_data_memory() {
   }
   
   for(i=0; i < 4000; i = i+4){
-    fprintf(fp, "%x %x\n", i, read_word(MEM, i));
+    fprintf(fp, "%x %x\n", i, read_word(MEM_HEAP, i));
   }
   fclose(fp);
 }
 
 //should be called when instruction is swi_exit
+
 void swi_exit() {
   write_data_memory();
   exit(0);
@@ -123,13 +142,13 @@ void write_back() {
 }
 
 
-int read_word(char *mem, unsigned int address) {
+int read_word(char *mem, unsigned long int address) {
   int *data;
   data =  (int*) (mem + address);
   return *data;
 }
 
-void write_word(char *mem, unsigned int address, unsigned int data) {
+void write_word(char *mem, unsigned long int address, unsigned long int data) {
   int *data_p;
   data_p = (int*) (mem + address);
   *data_p = data;

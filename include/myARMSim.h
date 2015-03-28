@@ -46,6 +46,6 @@ void mem();
 void write_back();
 
 
-int read_word(char *mem, unsigned int address);
-void write_word(char *mem, unsigned int address, unsigned int data);
+int read_word(char *mem, unsigned long int address);
+void write_word(char *mem, unsigned long int address, unsigned long int data);
 
