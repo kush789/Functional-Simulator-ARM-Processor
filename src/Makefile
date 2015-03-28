@@ -26,12 +26,14 @@
 #    Purpose of this file: Installing the library
 #	 Options : check, install, clean
 
+program_C_SRCS := $(wildcard *.c)
+
 all:
-	gcc -o myARMSim.o -c myARMSim.c
-	ar -rcs libARMSim.a myARMSim.o
+	cp ../include/myARMSim.h /usr/local/include
+	gcc -c $(program_C_SRCS) 
+	ar -rcs libARMSim.a $(wildcard *.o)
 	cp libARMSim.a /usr/local/lib/
 	cp libARMSim.a ../lib/
-	cp ../include/myARMSim.h /usr/local/include
 	rm *.a *.o
 
 install:

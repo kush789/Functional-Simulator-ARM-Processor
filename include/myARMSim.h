@@ -28,26 +28,74 @@
 */
 
 #include <stdint.h>
-    
-void run_armsim();
-void reset_proc();
-void load_program_memory(char* file_name);
-void write_data_memory();
-void swi_exit();
 
+typedef struct _armsimvar{
+    
+    //Register file, r15 -> PC
+
+    uint64_t R[16];
+
+    //flags
+
+    int N,C,V,Z;
+
+    //memory
+
+    uint8_t MEM_HEAP[4000];    // heap (dynamic allocation)
+    uint8_t MEM_STAK[4000];    // stack
+    uint8_t MEM_INST[4000];    // instruction memory
+
+    // intermediate datapath and control path signals
+
+    uint64_t instruction_word;
+    uint64_t operand1;
+    uint64_t operand2;
+    uint64_t register1;
+    uint64_t register2;
+    uint64_t register_dest;
+
+    // required for decoding
+
+    uint64_t condition;
+    uint64_t is_arth;
+    uint64_t opcode;
+    uint64_t shift;
+    uint64_t immediate;
+
+} armsimvariables;
+
+/* Support Functions */
+
+void run_armsim();
+
+void reset_proc(armsimvariables* var); 
+
+void load_program_memory(char* file_name, armsimvariables* var);
+
+void write_data_memory(armsimvariables* var);
+
+void swi_exit(armsimvariables* var);
 
 //reads from the instruction memory and updates the instruction register
-void fetch();
+void fetch(armsimvariables* var);
+
 //reads the instruction register, reads operand1, operand2 fromo register file, decides the operation to be performed in execute stage
-void decode();
+
+void decode(armsimvariables* var);
+
 //executes the ALU operation based on ALUop
+
 void execute();
+
 //perform the memory operation
+
 void mem();
+
 //writes the results back to register file
+
 void write_back();
 
-
 uint64_t read_word(char *mem, uint64_t address);
+
 void write_word(char *mem, uint64_t address, uint64_t data);
 
