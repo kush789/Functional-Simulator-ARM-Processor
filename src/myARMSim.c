@@ -14,10 +14,6 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with FLINT; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
 =============================================================================*/
 /******************************************************************************
 
@@ -26,8 +22,9 @@
 
 ******************************************************************************/
 
-/* myARMSim.h
-   Purpose of this file: Implementation file for myARMSim
+/* 
+    myARMSim.h
+    Purpose of this file: Implementation file for myARMSim
 */
 
 #include "myARMSim.h"
@@ -59,8 +56,15 @@ void run_armsim() {
 
 // it is used to set the reset values
 //reset all registers and memory content to 0
-void reset_proc() {
+void reset_proc() 
+{
+    int i;
 
+    for (i = 0; i < 16; i++)        //Resting registers
+        R[i] = 0;
+
+    for (i = 0; i < 4000; i++)      //Reseting memory
+        MEM[i] = 0;
 }
 
 //load_program_memory reads the input memory, and pupulates the instruction 
