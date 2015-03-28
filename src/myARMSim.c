@@ -31,7 +31,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//Register file
+//Register file, r15 -> PC
 
 static unsigned long int R[16];
 
@@ -50,7 +50,6 @@ static unsigned char MEM_INST[4000];    // instruction memory
 static unsigned long int instruction_word;
 static unsigned long int operand1;
 static unsigned long int operand2;
-
 
 void run_armsim() {
   while(1) {
@@ -127,6 +126,8 @@ void swi_exit() {
 
 //reads from the instruction memory and updates the instruction register
 void fetch() {
+    instruction_word = read_word(MEM_INST, R[15]);
+    R[15] += 4;
 }
 //reads the instruction register, reads operand1, operand2 fromo register file, decides the operation to be performed in execute stage
 void decode() {
@@ -142,7 +143,7 @@ void write_back() {
 }
 
 
-int read_word(char *mem, unsigned long int address) {
+unsigned long int read_word(char *mem, unsigned long int address) {
   int *data;
   data =  (int*) (mem + address);
   return *data;
