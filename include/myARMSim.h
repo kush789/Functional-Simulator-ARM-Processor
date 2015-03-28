@@ -80,7 +80,9 @@ void fetch(armsimvariables* var);
 
 //reads the instruction register, reads operand1, operand2 fromo register file, decides the operation to be performed in execute stage
 
-void decode(armsimvariables* var);
+void decode_type(armsimvariables* var);
+void decode_arith(armsimvariables* var);
+void shift_operand2(armsimvariables* var);        
 
 //executes the ALU operation based on ALUop
 

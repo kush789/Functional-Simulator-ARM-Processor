@@ -27,19 +27,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void decode_type(armsimvariables* var) {
+void decode_arith(armsimvariables* var)
+{
+	var->opcode = (var->instruction_word & 0x1E00000) >> 21;      // 24, 23, 22, 21
+    var->immediate = (var->instruction_word & 0x02000000) >> 25;   // 25
 
-    uint8_t temp;
-    uint8_t shift;
+    var->register1 = (var->instruction_word & 0x000F0000) >> 16;      // 19, 18, 17, 16
+    var->operand1 = var->R[var->register1];
+    var->register_dest = (var->instruction_word & 0x0000F000) >> 12;  // 15, 14, 13, 12
 
-    var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
-    temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
-
-    if (!temp)
-        var->is_arth = 1;
-
-    if (var->is_arth)
+    if (var->immediate)         // 11, 10, 9, 8 ->shift; 7 - 0 -> value
     {
-        decode_arith(var);
+        var->operand2 = (var->instruction_word & 0x000000FF);
+        int shift = (var->instruction_word & 0x00000F00) >> 8;
+        var->operand2 <<= shift;
+    }
+    else if (!var->immediate)   //
+    {
+        var->register2 = (var->instruction_word & 0x0000000F);
+        var->operand2 = var->R[var->register2];
+        shift_operand2(var);
     }
 }
