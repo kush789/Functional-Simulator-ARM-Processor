@@ -30,10 +30,11 @@
 #include "../include/myARMSim.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 
 //Register file, r15 -> PC
 
-static unsigned long int R[16];
+static uint64_t R[16];
 
 //flags
 
@@ -41,15 +42,26 @@ static int N,C,V,Z;
 
 //memory
 
-static unsigned char MEM_HEAP[4000];    // heap (dynamic allocation)
-static unsigned char MEM_STAK[4000];    // stack
-static unsigned char MEM_INST[4000];    // instruction memory
+static uint8_t MEM_HEAP[4000];    // heap (dynamic allocation)
+static uint8_t MEM_STAK[4000];    // stack
+static uint8_t MEM_INST[4000];    // instruction memory
 
-//intermediate datapath and control path signals
+// intermediate datapath and control path signals
 
-static unsigned long int instruction_word;
-static unsigned long int operand1;
-static unsigned long int operand2;
+static uint64_t instruction_word;
+static uint64_t operand1;
+static uint64_t operand2;
+static uint64_t register1;
+static uint64_t register2;
+static uint64_t register_dest;
+
+// required for decoding
+
+static uint64_t condition;
+static uint64_t is_arth;
+static uint64_t opcode;
+static uint64_t shift;
+static uint64_t immediate;
 
 void run_armsim() {
   while(1) {
@@ -85,7 +97,7 @@ void reset_proc()
 
 void load_program_memory(char *file_name) {
   FILE *fp;
-  unsigned long int address, instruction;
+  uint64_t address, instruction;
   fp = fopen(file_name, "r");
   if(fp == NULL) {
     printf("Error opening input mem file\n");
@@ -103,7 +115,7 @@ void load_program_memory(char *file_name) {
 
 void write_data_memory() {
   FILE *fp;
-  unsigned long int i;
+  uint64_t i;
   fp = fopen("data_out.mem", "w");
   if(fp == NULL) {
     printf("Error opening dataout.mem file for writing\n");
@@ -125,12 +137,32 @@ void swi_exit() {
 
 
 //reads from the instruction memory and updates the instruction register
+
 void fetch() {
     instruction_word = read_word(MEM_INST, R[15]);
     R[15] += 4;
 }
+
 //reads the instruction register, reads operand1, operand2 fromo register file, decides the operation to be performed in execute stage
+
 void decode() {
+
+    condition = (instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
+    is_arth = (instruction_word & 0x0C000000) >> 26;    // 27, 26
+
+    if (!is_arth)
+    {
+        opcode = (instruction_word & 0x1E00000) >> 21;      // 24, 23, 22, 21
+        immediate = (instruction_word & 0x02000000) >> 25;   // 25
+
+        register1 = (instruction_word & 0x000F0000) >> 16;      // 19, 18, 17, 16
+        register_dest = (instruction_word & 0x0000F000) >> 12;  // 15, 14, 13, 12
+
+        if (!immediate)
+        {
+            
+        }
+    }
 }
 //executes the ALU operation based on ALUop
 void execute() {
@@ -143,13 +175,13 @@ void write_back() {
 }
 
 
-unsigned long int read_word(char *mem, unsigned long int address) {
+uint64_t read_word(char *mem, uint64_t address) {
   int *data;
   data =  (int*) (mem + address);
   return *data;
 }
 
-void write_word(char *mem, unsigned long int address, unsigned long int data) {
+void write_word(char *mem, uint64_t address, uint64_t data) {
   int *data_p;
   data_p = (int*) (mem + address);
   *data_p = data;

@@ -27,6 +27,8 @@
     Purpose of this file: Header file for myARMSim
 */
 
+#include <stdint.h>
+    
 void run_armsim();
 void reset_proc();
 void load_program_memory(char* file_name);
@@ -46,6 +48,6 @@ void mem();
 void write_back();
 
 
-unsigned long int read_word(char *mem, unsigned long int address);
-void write_word(char *mem, unsigned long int address, unsigned long int data);
+uint64_t read_word(char *mem, uint64_t address);
+void write_word(char *mem, uint64_t address, uint64_t data);
 
