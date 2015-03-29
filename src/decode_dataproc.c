@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void decode_arith(armsimvariables* var)
+void decode_dataproc(armsimvariables* var)
 {
 	var->opcode = (var->instruction_word & 0x1E00000) >> 21;      // 24, 23, 22, 21
     var->immediate = (var->instruction_word & 0x02000000) >> 25;   // 25

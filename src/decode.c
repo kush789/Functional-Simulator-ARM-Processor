@@ -35,11 +35,9 @@ void decode_type(armsimvariables* var) {
     var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
     temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
 
-    if (!temp)
-        var->is_arth = 1;
+    if (temp == 0)
+        var->is_dataproc = 1;
 
-    if (var->is_arth)
-    {
-        decode_arith(var);
-    }
+    if (var->is_dataproc)
+        decode_dataproc(var);
 }

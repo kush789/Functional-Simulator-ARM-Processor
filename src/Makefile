@@ -37,7 +37,7 @@ all:
 	rm *.a *.o
 
 install:
-
+	
 check:
 
 clean:
