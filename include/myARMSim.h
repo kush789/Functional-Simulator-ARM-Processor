@@ -30,7 +30,7 @@
 typedef struct _armsimvar{
     
     //Register file, r15 -> PC
-    int64_t R[16];
+    int32_t R[16];
 
     //flags
     uint8_t N, Z;
@@ -41,10 +41,10 @@ typedef struct _armsimvar{
     uint8_t MEM_INST[4000];    // instruction memory
 
     // intermediate datapath and control path signals
-    uint64_t instruction_word;
-    int64_t operand1;
-    int64_t operand2;
-    int64_t answer;
+    uint32_t instruction_word;
+    int32_t operand1;
+    int32_t operand2;
+    int32_t answer;
     uint8_t register1;
     uint8_t register2;
     uint8_t register_dest;
@@ -99,6 +99,9 @@ void execute(armsimvariables* var);
 
 // executes in case data processing instruction
 void execute_data_proc(armsimvariables* var);
+
+// executes in case of branch instruction
+void execute_branch(armsimvariables* var);
 
 // Updates N, Z flags in case of CMP
 void update_flags(armsimvariables* var);

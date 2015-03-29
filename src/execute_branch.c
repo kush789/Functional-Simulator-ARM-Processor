@@ -27,12 +27,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//executes the ALU operation based on ALUop
-void execute(armsimvariables* var)
+void execute_branch(armsimvariables* var)					// PC = PC + offset * 4 + 8
 {
-    if (var->is_dataproc)
-        execute_data_proc(var);
+	uint32_t offset = (var->instruction_word & 0x00FFFFFF); 
 
-    else if (var->is_branch && var->branch_true)
-        execute_branch(var);
+	sign = offset & 0x800000;	// Extract sign
+	
+	if (sign == 1)				// Sign extension
+		offset |= 0xFF000000;
+	else
+		offset |= 0x00000000;
+	offset <<= 2;
+	offset += 8;
+
+	var->R[15] += offset;
 }
