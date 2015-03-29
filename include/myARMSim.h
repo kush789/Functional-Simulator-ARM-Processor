@@ -36,9 +36,8 @@ typedef struct _armsimvar{
     uint8_t N, Z;
 
     //memory
-    int8_t MEM_HEAP[4000];    // heap (dynamic allocation)
-    int8_t MEM_STAK[4000];    // stack
-    uint8_t MEM_INST[4000];    // instruction memory
+    int8_t MEM_HEAP[4000];      // heap (dynamic allocation)
+    uint8_t MEM_INST[4000];     // instruction memory
 
     // intermediate datapath and control path signals
     uint32_t instruction_word;
@@ -48,9 +47,10 @@ typedef struct _armsimvar{
     uint8_t register1;
     uint8_t register2;
     uint8_t register_dest;
-    uint8_t branch_true;    // In case branch condition is met
-    uint8_t store_true;     // In case intruction is load
-    uint8_t load_true;      // In case instruction is store
+
+    uint8_t branch_true;        // In case branch condition is met
+    uint8_t store_true;         // In case intruction is load
+    uint8_t load_true;          // In case instruction is store
 
     // required for decoding
     uint8_t condition;
@@ -83,7 +83,7 @@ void swi_exit(armsimvariables* var);
 void fetch(armsimvariables* var);
 
 // decides whether data process or ...
-void decode_type(armsimvariables* var);
+void decode(armsimvariables* var);
 
 // decode in case instruction has data proccessing
 void decode_dataproc(armsimvariables* var);
@@ -122,7 +122,7 @@ void mem();
 void write_back();
 
 // reads one word from array mem
-uint64_t read_word(char *mem, uint64_t address);
+uint32_t read_word(char *mem, uint32_t address);
 
 // writes one word to array ponter mem + address
-void write_word(char *mem, uint64_t address, uint64_t data);
+void write_word(char *mem, uint32_t address, uint32_t data);

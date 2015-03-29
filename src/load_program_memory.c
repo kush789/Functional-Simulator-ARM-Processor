@@ -31,7 +31,7 @@
 
 void load_program_memory(char *file_name, armsimvariables* var) {
     FILE *fp;
-    uint64_t address, instruction;
+    uint32_t address, instruction;
     fp = fopen(file_name, "r");
     if(fp == NULL) {
       printf("Error opening input mem file\n");

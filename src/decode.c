@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void decode_type(armsimvariables* var)
+void decode(armsimvariables* var)
 {
     uint8_t temp;
     uint8_t shift;

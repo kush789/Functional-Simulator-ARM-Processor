@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void write_word(char *mem, uint64_t address, uint64_t data) {
+void write_word(char *mem, uint32_t address, uint32_t data) {
 
     int *data_p;
     data_p = (int*) (mem + address);

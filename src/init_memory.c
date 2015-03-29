@@ -37,9 +37,6 @@ void init_memory(armsimvariables* var)
     for (i = 0; i < 4000; i++)      //Reseting instruction memory
         var->MEM_INST[i] = 0;
 
-    for (i = 0; i < 4000; i++)      //Reseting stack memory
-        var->MEM_STAK[i] = 0;
-
     for (i = 0; i < 4000; i++)      //Reseting heap memory
         var->MEM_HEAP[i] = 0;
 

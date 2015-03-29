@@ -31,7 +31,7 @@
 
 void write_data_memory(armsimvariables* var) {
   FILE *fp;
-  uint64_t i;
+  uint32_t i;
   fp = fopen("data_out.mem", "w");
   if(fp == NULL) {
     printf("Error opening dataout.mem file for writing\n");

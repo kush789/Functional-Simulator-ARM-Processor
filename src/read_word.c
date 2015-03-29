@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-uint64_t read_word(char *mem, uint64_t address) {
+uint32_t read_word(char *mem, uint32_t address) {
 
 	int *data;
 	data =  (int*) (mem + address);
