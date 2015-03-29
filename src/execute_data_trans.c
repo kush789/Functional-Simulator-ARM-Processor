@@ -27,15 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//executes the ALU operation based on ALUop
-void execute(armsimvariables* var)
+void execute_data_trans(armsimvariables* var)
 {
-    if (var->is_dataproc)
-        execute_data_proc(var);
 
-    else if (var->is_datatrans)
-        execute_data_trans(var);
-
-    else if (var->is_branch && var->branch_true)
-        execute_branch(var);
 }

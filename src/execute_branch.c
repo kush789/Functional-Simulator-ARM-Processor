@@ -31,7 +31,7 @@ void execute_branch(armsimvariables* var)					// PC = PC + offset * 4 + 8
 {
 	uint32_t offset = (var->instruction_word & 0x00FFFFFF); 
 
-	sign = offset & 0x800000;	// Extract sign
+	uint8_t sign = offset & 0x800000;	// Extract sign
 	
 	if (sign == 1)				// Sign extension
 		offset |= 0xFF000000;

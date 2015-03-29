@@ -27,15 +27,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//executes the ALU operation based on ALUop
-void execute(armsimvariables* var)
+void decode_datatrans(armsimvariables* var)
 {
-    if (var->is_dataproc)
-        execute_data_proc(var);
+    uint8_t option = ((var->instruction_word & 0x03F00000) >> 20);
 
-    else if (var->is_datatrans)
-        execute_data_trans(var);
+    if (option == 24)           // STR
+        var->store_true = 1;
 
-    else if (var->is_branch && var->branch_true)
-        execute_branch(var);
+    else if (option == 25)      // LDR
+        var->load_true = 1;
+
+#ifdef DEBUG
+
+    else
+        printf("Something wrong in Data transfer load store\n");
+
+#endif
 }

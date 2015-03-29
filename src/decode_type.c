@@ -37,11 +37,17 @@ void decode_type(armsimvariables* var)
     if (temp == 0)
         var->is_dataproc = 1;
 
+    else if (temp == 1)
+        var->is_datatrans = 1;
+
     else if (temp == 2)
         var->is_branch = 1;
 
     if (var->is_dataproc)
         decode_dataproc(var);
+
+    if (var->is_datatrans)
+        decode_datatrans(var);
 
     if (var->is_branch)
         decode_branch(var);

@@ -49,11 +49,14 @@ typedef struct _armsimvar{
     uint8_t register2;
     uint8_t register_dest;
     uint8_t branch_true;    // In case branch condition is met
+    uint8_t store_true;     // In case intruction is load
+    uint8_t load_true;      // In case instruction is store
 
     // required for decoding
     uint8_t condition;
     uint8_t is_dataproc;
     uint8_t is_branch;
+    uint8_t is_datatrans;
     uint8_t opcode;
     uint8_t immediate;
 
@@ -86,9 +89,12 @@ void decode_type(armsimvariables* var);
 void decode_dataproc(armsimvariables* var);
 
 // decode in case instruction has branch
-void decode_dataproc(armsimvariables* var);
+void decode_branch(armsimvariables* var);
 
-// Reset variables required for decodeing
+// decode in case instruction is of data transfer type
+void decode_datatrans(armsimvariables* var);
+
+// Reset variables required for decoding
 void reset_decode_variables(armsimvariables* var);
 
 // In case operand two requires shifting
@@ -99,6 +105,9 @@ void execute(armsimvariables* var);
 
 // executes in case data processing instruction
 void execute_data_proc(armsimvariables* var);
+
+// executes in case data processing instruction
+void execute_data_trans(armsimvariables* var);
 
 // executes in case of branch instruction
 void execute_branch(armsimvariables* var);
@@ -117,4 +126,3 @@ uint64_t read_word(char *mem, uint64_t address);
 
 // writes one word to array ponter mem + address
 void write_word(char *mem, uint64_t address, uint64_t data);
-

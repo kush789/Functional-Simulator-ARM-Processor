@@ -42,4 +42,7 @@ void reset_decode_variables(armsimvariables* var)
     var->opcode = 0;
     var->immediate = 0;
     var->branch_true = 0;
+    var->is_datatrans = 0;
+    var->load_true = 0;
+    var->store_true = 0;
 }
