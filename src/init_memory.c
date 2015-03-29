@@ -27,11 +27,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// it is used to set the reset values reset all registers and memory content to 0
-
-void reset_proc(armsimvariables* var) 
+void init_memory(armsimvariables* var)
 {
-    int i;
+	int i;
 
     for (i = 0; i < 16; i++)        //Resting registers
         var->R[i] = 0;
@@ -44,4 +42,17 @@ void reset_proc(armsimvariables* var)
 
     for (i = 0; i < 4000; i++)      //Reseting heap memory
         var->MEM_HEAP[i] = 0;
+
+    var->instruction_word = 0;
+    var->operand1 = 0;
+    var->operand2 = 0;
+    var->answer = 0;
+    var->register1 = 0;
+    var->register2 = 0;
+    var->register_dest = 0;
+    var->condition = 0;
+    var->is_dataproc = 0;
+    var->is_branch = 0;
+    var->opcode = 0;
+    var->immediate = 0;
 }

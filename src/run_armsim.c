@@ -27,7 +27,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void run_armsim(armsimvariables* var) {
+void run_armsim(armsimvariables* var)
+{
+    init_memory(var);
+    
     while(1) {
         fetch(var);
         decode(var);
@@ -37,42 +40,6 @@ void run_armsim(armsimvariables* var) {
     }
 }
 
-
-//executes the ALU operation based on ALUop
-void execute(armsimvariables* var)
-{
-    if (var->is_dataproc)
-    {
-        if (var->opcode == 0)
-            var->answer = var->operand1 & var->operand2;
-
-        else if (var->opcode == 1)
-            var->answer = var->operand1 ^ var->operand2;
-
-        else if (var->opcode == 4)
-            var->answer = var->operand1 + var->operand2;
-
-        else if (var->opcode == 5)
-            var->answer = var->operand1 + var->operand2 + 1;
-
-        else if (var->opcode == 10)
-        {
-            //cmp
-        }
-
-        else if (var->opcode == 12)
-            var->answer = var->operand1 | var->operand2;
-
-        else if (var->opcode == 13)
-            var->answer = var->operand2;
-
-        else if (var->opcode == 15)
-            var->answer = ~(var->operand2);
-
-        var->R[var->register_dest] = var->answer;
-
-    }
-}
 //perform the memory operation
 void mem() {
 }

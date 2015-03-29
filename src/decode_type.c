@@ -27,41 +27,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void execute_data_proc(armsimvariables* var)
+void decode_type(armsimvariables* var)
 {
-    if (var->opcode == 0)
-        var->answer = var->operand1 & var->operand2;
+    uint8_t temp;
+    uint8_t shift;
 
-    else if (var->opcode == 1)
-        var->answer = var->operand1 ^ var->operand2;
+    var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
+    temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
 
-    else if (var->opcode == 2)
-        var->answer = var->operand1 - var->operand2;
+    if (temp == 0)
+        var->is_dataproc = 1;
 
-    else if (var->opcode == 4)
-        var->answer = var->operand1 + var->operand2;
+    else if (temp == 2)
+        var->is_branch = 1;
 
-    else if (var->opcode == 5)
-        var->answer = var->operand1 + var->operand2 + 1;
 
-    else if (var->opcode == 10)
-    {
-        var->answer = var->operand1 - var->operand2;
-        update_flags(var);
-    }
-
-    else if (var->opcode == 12)
-        var->answer = var->operand1 | var->operand2;
-
-    else if (var->opcode == 13)
-        var->answer = var->operand2;
-
-    else if (var->opcode == 15)
-        var->answer = ~(var->operand2);
-
-#ifdef DEBUG
-    printf("Opcode wrong in case of execute_data_proc\n");
-#endif
-    
-    var->R[var->register_dest] = var->answer;
+    if (var->is_dataproc)
+        decode_dataproc(var);
 }

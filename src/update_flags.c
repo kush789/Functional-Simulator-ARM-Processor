@@ -27,17 +27,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void decode_type(armsimvariables* var) {
+void update_flags(armsimvariables* var)
+{
+    if (var->answer == 0)
+        var->Z = 0;
+    else
+        var->Z = 1;
 
-    uint8_t temp;
-    uint8_t shift;
-
-    var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
-    temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
-
-    if (temp == 0)
-        var->is_dataproc = 1;
-
-    if (var->is_dataproc)
-        decode_dataproc(var);
+    if (var->answer < 0)
+        var->N = 0;
+    else
+        var->N = 1;
 }

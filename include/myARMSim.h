@@ -33,7 +33,7 @@ typedef struct _armsimvar{
     int64_t R[16];
 
     //flags
-    uint8_t N,C,V,Z;
+    uint8_t N, Z;
 
     //memory
     int8_t MEM_HEAP[4000];    // heap (dynamic allocation)
@@ -52,6 +52,7 @@ typedef struct _armsimvar{
     // required for decoding
     uint8_t condition;
     uint8_t is_dataproc;
+    uint8_t is_branch;
     uint8_t opcode;
     uint8_t immediate;
 
@@ -59,11 +60,11 @@ typedef struct _armsimvar{
 
 /* Support Functions */
 
-// Initates ARMSim
-void run_armsim();
+// Initiates variables to 0;
+void init_memory(armsimvariables* var);
 
-// Resets memory, initializes to 0
-void reset_proc(armsimvariables* var); 
+// Initates ARMSim
+void run_armsim(armsimvariables* var);
 
 // Used to read instructions from mem file
 void load_program_memory(char* file_name, armsimvariables* var);
@@ -91,6 +92,9 @@ void execute(armsimvariables* var);
 
 // executes in case data processing instruction
 void execute_data_proc(armsimvariables* var);
+
+// Updates N, Z flags in case of CMP
+void update_flags(armsimvariables* var);
 
 //perform the memory operation
 void mem();
