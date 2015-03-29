@@ -27,25 +27,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void run_armsim(armsimvariables* var)
+void reset_decode_variables(armsimvariables* var)
 {
-    init_memory(var);
-
-    while(1) {
-        fetch(var);
-        decode(var);
-        execute(var);
-        mem();
-        write_back();
-        reset_decode_variables(var);
-    }
+    var->instruction_word = 0;
+    var->operand1 = 0;
+    var->operand2 = 0;
+    var->answer = 0;
+    var->register1 = 0;
+    var->register2 = 0;
+    var->register_dest = 0;
+    var->condition = 0;
+    var->is_dataproc = 0;
+    var->is_branch = 0;
+    var->opcode = 0;
+    var->immediate = 0;
+    var->branch_true = 0;
 }
-
-//perform the memory operation
-void mem() {
-}
-//writes the results back to register file
-void write_back() {
-}
-
-

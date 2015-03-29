@@ -27,25 +27,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void run_armsim(armsimvariables* var)
+void decode_branch(armsimvariables* var)
 {
-    init_memory(var);
+	var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
 
-    while(1) {
-        fetch(var);
-        decode(var);
-        execute(var);
-        mem();
-        write_back();
-        reset_decode_variables(var);
-    }
+	if (var->condition == 0 && var->Z)			// BEQ, zero flag is true
+		var->branch_true = 1;
+
+	else if (var->condition == 1 && !(var->Z))	// BNE, zero flag is false
+		var->branch_true = 1;
+
+	else if (var->condition == 10 && !(var->N))	// BGE, not negative
+		var->branch_true = 1;
+
+	else if (var->condition == 11 && var->N)	// BLT, negative flag is true
+		var->branch_true = 1;
+
+	else if (var->condition == 12 && !(var->N) && !(var->Z))	// BGT, not negative, not zero
+		var->branch_true = 1;
+
+	else if (var->condition == 13 && (var->N || var->Z))		// BLE, either negative or zero
+		var->branch_true = 1;
+
+	else if (var->condition == 14 )				// Always
+		var->branch_true = 1;
+
+	else
+		var->branch_true = 0;
 }
-
-//perform the memory operation
-void mem() {
-}
-//writes the results back to register file
-void write_back() {
-}
-
-

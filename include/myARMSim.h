@@ -48,6 +48,7 @@ typedef struct _armsimvar{
     uint8_t register1;
     uint8_t register2;
     uint8_t register_dest;
+    uint8_t branch_true;    // In case branch condition is met
 
     // required for decoding
     uint8_t condition;
@@ -83,6 +84,12 @@ void decode_type(armsimvariables* var);
 
 // decode in case instruction has data proccessing
 void decode_dataproc(armsimvariables* var);
+
+// decode in case instruction has branch
+void decode_dataproc(armsimvariables* var);
+
+// Reset variables required for decodeing
+void reset_decode_variables(armsimvariables* var);
 
 // In case operand two requires shifting
 void shift_operand2(armsimvariables* var);        

@@ -55,4 +55,5 @@ void init_memory(armsimvariables* var)
     var->is_branch = 0;
     var->opcode = 0;
     var->immediate = 0;
+    var->branch_true = 0;
 }

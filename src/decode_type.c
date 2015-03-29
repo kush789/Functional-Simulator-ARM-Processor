@@ -32,7 +32,6 @@ void decode_type(armsimvariables* var)
     uint8_t temp;
     uint8_t shift;
 
-    var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
     temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
 
     if (temp == 0)
@@ -41,7 +40,9 @@ void decode_type(armsimvariables* var)
     else if (temp == 2)
         var->is_branch = 1;
 
-
     if (var->is_dataproc)
         decode_dataproc(var);
+
+    if (var->is_branch)
+        decode_branch(var);
 }

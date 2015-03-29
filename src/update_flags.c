@@ -30,12 +30,12 @@
 void update_flags(armsimvariables* var)
 {
     if (var->answer == 0)
-        var->Z = 0;
-    else
         var->Z = 1;
+    else
+        var->Z = 0;
 
     if (var->answer < 0)
-        var->N = 0;
-    else
         var->N = 1;
+    else
+        var->N = 0;
 }
