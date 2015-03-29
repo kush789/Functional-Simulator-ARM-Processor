@@ -27,22 +27,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void reset_decode_variables(armsimvariables* var)
+//perform the memory operation
+void mem(armsimvariables* var)
 {
-    var->instruction_word = 0;
-    var->operand1 = 0;
-    var->operand2 = 0;
-    var->answer = 0;
-    var->register1 = 0;
-    var->register2 = 0;
-    var->register_dest = 0;
-    var->condition = 0;
-    var->is_dataproc = 0;
-    var->is_branch = 0;
-    var->opcode = 0;
-    var->immediate = 0;
-    var->branch_true = 0;
-    var->is_datatrans = 0;
-    var->load_true = 0;
-    var->store_true = 0;
+    if (var->is_datatrans)
+    {
+        uint16_t offset = (var->instruction_word & 0x0FFF);
+
+        if (var->store_true)         // STR instruction
+            write_word(var->MEM_HEAP, var->R[var->register1] + offset, var->R[var->register_dest]);
+
+        else if (var->load_true)     // LDR instruction
+            var->R[var->register_dest] = read_word(var->MEM_HEAP, var->R[var->register1] + offset);
+    }
 }

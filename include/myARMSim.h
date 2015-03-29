@@ -94,9 +94,6 @@ void decode_branch(armsimvariables* var);
 // decode in case instruction is of data transfer type
 void decode_datatrans(armsimvariables* var);
 
-// Reset variables required for decoding
-void reset_decode_variables(armsimvariables* var);
-
 // In case operand two requires shifting
 void shift_operand2(armsimvariables* var);        
 
@@ -116,10 +113,10 @@ void execute_branch(armsimvariables* var);
 void update_flags(armsimvariables* var);
 
 //perform the memory operation
-void mem();
+void mem(armsimvariables* var);
 
 //writes the results back to register file
-void write_back();
+void write_back(armsimvariables* var);
 
 // reads one word from array mem
 uint32_t read_word(char *mem, uint32_t address);

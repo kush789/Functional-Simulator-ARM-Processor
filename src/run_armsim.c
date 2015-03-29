@@ -31,21 +31,15 @@ void run_armsim(armsimvariables* var)
 {
     init_memory(var);
 
-    while(1) {
+    while(1)
+    {
         fetch(var);
         decode(var);
         execute(var);
-        mem();
-        write_back();
-        reset_decode_variables(var);
+        mem(var);
+        write_back(var);
     }
 }
 
-//perform the memory operation
-void mem() {
-}
-//writes the results back to register file
-void write_back() {
-}
 
 

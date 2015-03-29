@@ -33,12 +33,4 @@ void execute_data_trans(armsimvariables* var)
 
     var->register_dest = ((var->instruction_word & 0x0000F000) >> 12);      // in case of STR, value to be stored
                                                                             // in case of LDR, designation register 
-
-    uint16_t offset = (var->instruction_word & 0x0FFF);
-
-    if (var->store_true)         // STR instruction
-        write_word(var->MEM_HEAP, var->R[var->register1] + offset, var->R[var->register_dest]);
-
-    else if (var->load_true)     // LDR instruction
-        var->R[var->register_dest] = read_word(var->MEM_HEAP, var->R[var->register1] + offset);
 }

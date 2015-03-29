@@ -63,5 +63,4 @@ void execute_data_proc(armsimvariables* var)
     printf("Opcode wrong in case of execute_data_proc\n");
 #endif
     
-    var->R[var->register_dest] = var->answer;
 }

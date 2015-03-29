@@ -27,12 +27,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// reads from the instruction memory and updates the instruction register
-// R[15] is pc, contains address 
+//writes the results back to register file
+void write_back(armsimvariables* var)
+{
+    if (var->is_dataproc)
+        var->R[var->register_dest] = var->answer;
 
-void fetch(armsimvariables* var) {
+    var->is_datatrans = 0;
+    var->is_dataproc = 0;
+    var->is_branch = 0;
 
-    var->instruction_word = read_word(var->MEM_INST, var->R[15]);
-    var->R[15] += 8;
-    
+    var->load_true = 0;
+    var->store_true = 0;
+    var->branch_true = 0;
 }
+
