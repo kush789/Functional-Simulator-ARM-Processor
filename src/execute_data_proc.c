@@ -60,7 +60,8 @@ void execute_data_proc(armsimvariables* var)
         var->answer = ~(var->operand2);
 
 #ifdef DEBUG
-    printf("Opcode wrong in case of execute_data_proc\n");
+    else
+        printf("Opcode wrong in case of execute_data_proc, given is %d\n", var->opcode);
 #endif
     
 }

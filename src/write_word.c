@@ -29,8 +29,8 @@
 
 void write_word(char *mem, uint32_t address, uint32_t data) {
 
-    int *data_p;
-    data_p = (int*) (mem + address);
+    uint32_t *data_p;
+    data_p = (uint32_t*) (mem + address);
     *data_p = data;
 
 }

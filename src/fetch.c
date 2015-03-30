@@ -30,9 +30,10 @@
 // reads from the instruction memory and updates the instruction register
 // R[15] is pc, contains address 
 
-void fetch(armsimvariables* var) {
+uint32_t fetch(armsimvariables* var) {
 
     var->instruction_word = read_word(var->MEM_INST, var->R[15]);
-    var->R[15] += 8;
-    
+    var->R[15] += 4;
+
+    return var->instruction_word;
 }

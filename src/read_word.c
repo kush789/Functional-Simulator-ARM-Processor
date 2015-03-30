@@ -29,8 +29,8 @@
 
 uint32_t read_word(char *mem, uint32_t address) {
 
-	int *data;
-	data =  (int*) (mem + address);
+	uint32_t *data;
+	data =  (uint32_t*) (mem + address);
 	return *data;
 
 }

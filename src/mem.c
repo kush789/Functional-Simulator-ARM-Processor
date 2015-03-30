@@ -27,7 +27,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//perform the memory operation
 void mem(armsimvariables* var)
 {
     if (var->is_datatrans)

@@ -29,11 +29,15 @@
 
 void run_armsim(armsimvariables* var)
 {
-    init_memory(var);
+    uint32_t val;
 
-    while(1)
+    while(var->R[15] < 4000)
     {
-        fetch(var);
+        val = fetch(var);
+        
+        if (!val)
+            return;
+
         decode(var);
         execute(var);
         mem(var);

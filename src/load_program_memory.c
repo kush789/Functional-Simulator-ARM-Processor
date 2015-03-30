@@ -38,9 +38,8 @@ void load_program_memory(char *file_name, armsimvariables* var) {
       exit(1);
     }
 
-    while(fscanf(fp, "%x %x", &address, &instruction) != EOF) {
-      write_word(var->MEM_INST, address, instruction);
-    }
+    while(fscanf(fp, "%x %x", &address, &instruction) != EOF)
+        write_word(var->MEM_INST, address, instruction);
 
     fclose(fp);
 }

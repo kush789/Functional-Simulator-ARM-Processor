@@ -80,7 +80,7 @@ void write_data_memory(armsimvariables* var);
 void swi_exit(armsimvariables* var);
 
 //reads from the instruction memory and updates the instruction register
-void fetch(armsimvariables* var);
+uint32_t fetch(armsimvariables* var);
 
 // decides whether data process or ...
 void decode(armsimvariables* var);
