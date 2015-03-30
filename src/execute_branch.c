@@ -27,18 +27,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void execute_branch(armsimvariables* var)					// PC = PC + offset * 4 + 8
+void execute_branch(armsimvariables* var)		 // PC = PC + offset * 4 + 8
 {
-	uint32_t offset = (var->instruction_word & 0x00FFFFFF); 
+    var->R[15] -= 4;                             // Incremented from fetch
 
-	uint8_t sign = offset & 0x800000;	// Extract sign
-	
-	if (sign == 1)				// Sign extension
+	uint32_t offset = (var->instruction_word & 0x00FFFFFF); 
+	uint8_t sign = ((offset & 0x800000) >> 23);	 // Extract sign
+
+	if (sign == 1)				                 // Sign extension
 		offset |= 0xFF000000;
 	else
 		offset |= 0x00000000;
+
 	offset <<= 2;
 	offset += 8;
-
 	var->R[15] += offset;
 }

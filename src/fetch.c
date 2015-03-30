@@ -34,6 +34,6 @@ uint32_t fetch(armsimvariables* var) {
 
     var->instruction_word = read_word(var->MEM_INST, var->R[15]);
     var->R[15] += 4;
-
+    
     return var->instruction_word;
 }
