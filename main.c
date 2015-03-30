@@ -26,28 +26,25 @@
 
 ******************************************************************************/
 
-/* main.cpp 
-   Purpose of this file: The file handles the input and output, and
-   invokes the simulator
-*/
-
-#include "myARMSim.h"
+#include <myARMSim.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, char** argv) {
-  char* prog_mem_file; 
-  if(argc < 2) {
-    printf("Incorrect number of arguments. Please invoke the simulator \n\t./myARMSim <input mem file> \n");
-    exit(1);
-  }
-  
-  //reset the processor
-  reset_proc();
-  //load the program memory
-  load_program_memory(argv[1]);
-  //run the simulator
-  run_armsim();
+    char* prog_mem_file; 
+
+    if(argc < 2) {
+        printf("Incorrect number of arguments. Please invoke the simulator \n\t./myARMSim <input mem file> \n");
+        exit(1);
+    }
+
+    armsimvariables* var = (armsimvariables*) malloc(sizeof(armsimvariables));
+
+    init_memory(var);
+    load_program_memory(argv[1], var);
+    run_armsim(var);
+    write_data_memory(var);
 
   return 1;
 }
+
