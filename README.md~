@@ -12,5 +12,3 @@ sudo make install
 cd ..
 gcc -o a main.c -lARMSim
 
-# EXECUTION
-./a <INPUT .MEM FILE>
