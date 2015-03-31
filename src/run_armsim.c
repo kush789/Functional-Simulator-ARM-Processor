@@ -39,7 +39,11 @@ void run_armsim(armsimvariables* var)
             return;
 
         decode(var);
-        execute(var);
+        val = execute(var);
+
+        if (!val)
+            return;
+        
         mem(var);
         write_back(var);
     }

@@ -36,6 +36,7 @@ void write_back(armsimvariables* var)
     var->is_datatrans = 0;
     var->is_dataproc = 0;
     var->is_branch = 0;
+    var->swi_exit = 0;
 
     var->load_true = 0;
     var->store_true = 0;

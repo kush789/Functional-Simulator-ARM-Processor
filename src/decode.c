@@ -43,6 +43,9 @@ void decode(armsimvariables* var)
     else if (temp == 2)
         var->is_branch = 1;
 
+    else if (temp == 3)
+        var->swi_exit = 1;
+
     if (var->is_dataproc)
         decode_dataproc(var);
 

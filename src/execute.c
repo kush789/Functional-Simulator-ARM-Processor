@@ -28,9 +28,12 @@
 #include <stdlib.h>
 
 //executes the ALU operation based on ALUop
-void execute(armsimvariables* var)
+uint8_t execute(armsimvariables* var)
 {
-    if (var->is_dataproc)
+    if (var->swi_exit == 1)
+        return 0;
+
+    else if (var->is_dataproc)
         execute_data_proc(var);
 
     else if (var->is_datatrans)
@@ -38,4 +41,6 @@ void execute(armsimvariables* var)
 
     else if (var->is_branch && var->branch_true)
         execute_branch(var);
+
+    return 1;
 }

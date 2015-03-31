@@ -40,7 +40,7 @@ void decode_datatrans(armsimvariables* var)
 #ifdef DEBUG
 
     else
-        printf("Something wrong in Data transfer load store\n");
+        printf("Something wrong in Data transfer load store %lu\n", option);
 
 #endif
 }

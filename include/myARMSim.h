@@ -57,6 +57,7 @@ typedef struct _armsimvar{
     uint8_t is_dataproc;
     uint8_t is_branch;
     uint8_t is_datatrans;
+    uint8_t swi_exit;
     uint8_t opcode;
     uint8_t immediate;
 
@@ -98,7 +99,7 @@ void decode_datatrans(armsimvariables* var);
 void shift_operand2(armsimvariables* var);        
 
 //executes the ALU operation based on ALUop
-void execute(armsimvariables* var);
+uint8_t execute(armsimvariables* var);
 
 // executes in case data processing instruction
 void execute_data_proc(armsimvariables* var);
