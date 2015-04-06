@@ -30,34 +30,86 @@
 void execute_data_proc(armsimvariables* var)
 {
     if (var->opcode == 0)
+    {
         var->answer = var->operand1 & var->operand2;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : AND\n");
+        printf("EXECUTE : AND %zu and %zu\n", var->operand1, var->operand2);
+#endif        
+    }
 
     else if (var->opcode == 1)
+    {
         var->answer = var->operand1 ^ var->operand2;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : XOR\n");
+        printf("EXECUTE : XOR %zu and %zu\n", var->operand1, var->operand2);
+#endif        
+    }
 
     else if (var->opcode == 2)
+    {
         var->answer = var->operand1 - var->operand2;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : SUBTRACT\n");
+        printf("EXECUTE : SUBTRACT %zu and %zu\n", var->operand1, var->operand2);
+#endif        
+    }
 
     else if (var->opcode == 4)
+    {
         var->answer = var->operand1 + var->operand2;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : ADD\n");
+        printf("EXECUTE : ADD %zu and %zu\n", var->operand1, var->operand2);
+#endif        
+    }
 
     else if (var->opcode == 5)
+    {
         var->answer = var->operand1 + var->operand2 + 1;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : ADD WITH CARRY\n");
+        printf("EXECUTE : ADD WITH CARRY %zu and %zu\n", var->operand1, var->operand2);
+#endif        
+    }
 
     else if (var->opcode == 10)
     {
         var->answer = var->operand1 - var->operand2;
         update_flags(var);
+#ifdef STATUS
+        printf("EXECUTE : Operation is : SUBTRACT\n");
+        printf("EXECUTE : SUBTRACT %zu and %zu\n", var->operand1, var->operand2);
+#endif  
     }
 
     else if (var->opcode == 12)
+    {
         var->answer = var->operand1 | var->operand2;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : OR\n");
+        printf("EXECUTE : OR %zu and %zu\n", var->operand1, var->operand2);
+#endif        
+    }
 
     else if (var->opcode == 13)
+    {
         var->answer = var->operand2;
+#ifdef STATUS
+        printf("EXECUTE : Operation is : MOVE\n");
+        printf("EXECUTE : MOVE %zu TO R%zu\n", var->operand1, var->register_dest);
+#endif        
+    }
 
     else if (var->opcode == 15)
+    {
         var->answer = ~(var->operand2);
+#ifdef STATUS
+        printf("EXECUTE : Operation is : NOT\n");
+        printf("EXECUTE : NOT %zu\n", var->operand2);
+#endif        
+    }
 
 #ifdef DEBUG
     else

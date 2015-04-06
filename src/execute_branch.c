@@ -42,4 +42,10 @@ void execute_branch(armsimvariables* var)		 // PC = PC + offset * 4 + 8
 	offset <<= 2;
 	offset += 8;
 	var->R[15] += offset;
+
+#ifdef STATUS
+        printf("EXECUTE : Branch to 0x%x\n", var->R[15]);
+#endif 
+
+
 }

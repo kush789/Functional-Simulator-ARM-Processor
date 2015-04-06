@@ -31,8 +31,15 @@
 void write_back(armsimvariables* var)
 {
     if (var->is_dataproc)
+    {
         var->R[var->register_dest] = var->answer;
-
+#ifdef STATUS
+        printf("WRITEBACK : WRITE %zu TO R%zu\n", var->answer, var->register_dest);
+#endif        
+    }
+#ifdef STATUS
+    printf("\n\n\n");
+#endif
     var->is_datatrans = 0;
     var->is_dataproc = 0;
     var->is_branch = 0;

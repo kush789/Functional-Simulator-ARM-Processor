@@ -35,16 +35,36 @@ void decode(armsimvariables* var)
     temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
 
     if (temp == 0)
+    {
         var->is_dataproc = 1;
+#ifdef STATUS
+        printf("DECODE : Instruction decoded, type : data processing\n");
+#endif        
+    }
 
     else if (temp == 1)
+    {
         var->is_datatrans = 1;
+#ifdef STATUS
+        printf("DECODE : Instruction decoded, type : data transfer\n");
+#endif         
+    }
 
     else if (temp == 2)
+    {
         var->is_branch = 1;
+#ifdef STATUS
+        printf("DECODE : Instruction decoded, type : branch\n");
+#endif         
+    }
 
     else if (temp == 3)
+    {
         var->swi_exit = 1;
+#ifdef STATUS
+        printf("DECODE : Instruction decoded, SWI_EXIT\n");
+#endif         
+    }
 
     if (var->is_dataproc)
         decode_dataproc(var);

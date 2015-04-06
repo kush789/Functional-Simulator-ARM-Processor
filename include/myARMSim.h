@@ -26,6 +26,8 @@
 
 #define DEBUG 1         // Comment to switch off debug
 
+#define STATUS 1        // Comment to switch off status messages
+
 // Mmemory, flags, registers for ARMSim
 typedef struct _armsimvar{
     

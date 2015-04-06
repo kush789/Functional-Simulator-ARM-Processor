@@ -29,6 +29,12 @@
 
 void decode_branch(armsimvariables* var)
 {
+
+#ifdef STATUS
+    printf("Decoded instruction, type : branch. \n");
+#endif
+
+
 	var->condition = (var->instruction_word & 0xF0000000) >> 28;  // 31, 30, 29, 28
 
 	if (var->condition == 0 && var->Z)			// BEQ, zero flag is true
@@ -54,4 +60,11 @@ void decode_branch(armsimvariables* var)
 
 	else
 		var->branch_true = 0;
+
+#ifdef STATUS
+	if (var->branch_true)
+		printf("EXECUTE : TAKING BRANCH\n");
+	else
+		printf("EXECUTE : NOT TAKING BRANCH\n");
+#endif
 }

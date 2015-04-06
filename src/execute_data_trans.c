@@ -33,4 +33,7 @@ void execute_data_trans(armsimvariables* var)
 
     var->register_dest = ((var->instruction_word & 0x0000F000) >> 12);      // in case of STR, value to be stored
                                                                             // in case of LDR, designation register 
+#ifdef STATUS
+        printf("EXECUTE : NOTHING TO EXECUTE %zu\n", var->operand2);
+#endif 
 }

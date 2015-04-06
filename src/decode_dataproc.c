@@ -48,4 +48,8 @@ void decode_dataproc(armsimvariables* var)
         var->operand2 = var->R[var->register2];
         shift_operand2(var);
     }
+
+#ifdef STATUS
+    printf("DECODE : Register 1 is R%zu, Register 2 is R%zu, Destination Register : R%zu\n", var->register1, var->register2, var->register_dest);
+#endif
 }

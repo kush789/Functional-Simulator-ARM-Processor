@@ -35,5 +35,9 @@ uint32_t fetch(armsimvariables* var) {
     var->instruction_word = read_word(var->MEM_INST, var->R[15]);
     var->R[15] += 4;
     
+#ifdef STATUS
+    printf("FETCH : FETCHED INSTRUCTION 0x%x FROM ADDRESS 0x%x\n", var->instruction_word, var->R[15] - 4);
+#endif
+
     return var->instruction_word;
 }
