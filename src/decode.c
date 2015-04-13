@@ -31,7 +31,7 @@ void decode(armsimvariables* var)
 {
     uint8_t temp;
     uint8_t shift;
-
+ 
     temp = (var->instruction_word & 0x0C000000) >> 26;    // 27, 26
 
     if (temp == 0)
