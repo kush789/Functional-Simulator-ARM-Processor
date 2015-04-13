@@ -14,4 +14,4 @@ This is a Functional Simulator for ARM Processor. It was developed as a part of 
 # Execution
 Follow sample.c in ./test for an example.
 - gcc -o arm sample.c -lARMSim    (link with lib ARMSim)
-- arm ./sample.mem    (Provide mem file as argument)
+- ./arm ./sample.mem    (Provide mem file as argument)
