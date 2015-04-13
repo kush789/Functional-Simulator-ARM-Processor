@@ -29,12 +29,12 @@
 
 void decode_datatrans(armsimvariables* var)
 {
-    uint8_t option = ((var->instruction_word & 0x03F00000) >> 20);
+    uint8_t option = ((var->instruction_word & 0x00100000) >> 20);
 
-    if (option == 24)           // STR
+    if (option == 0)           // STR
         var->store_true = 1;
 
-    else if (option == 25)      // LDR
+    else if (option == 1)      // LDR
         var->load_true = 1;
 
 #ifdef DEBUG

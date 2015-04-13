@@ -22,3 +22,6 @@ ADD r5, r5, r4
 ADD r2, r2, #1
 CMP r2, r3
 BNE LOOP2
+
+STR r5, [r8, r3, LSL #2]
+SWI 0x11

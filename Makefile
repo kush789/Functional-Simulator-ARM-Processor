@@ -26,19 +26,26 @@
 #    Purpose of this file: Installing the library
 #	 Options : check, install, clean
 
-program_C_SRCS := $(wildcard *.c)
+program_C_SRCS := $(wildcard ./src/*.c)
 
 all:
-	cp ../include/myARMSim.h /usr/local/include
+	cp ./include/myARMSim.h /usr/local/include
 	gcc -c $(program_C_SRCS)
-	ar -rcs libARMSim.a $(wildcard *.o)
 
 install:
+	cd ./src
+	ar -rcs libARMSim.a $(wildcard *.o)
 	cp libARMSim.a /usr/local/lib/
-	cp libARMSim.a ../lib/
+	cp libARMSim.a ./lib/
 	rm *.a *.o
 	
 check:
+	gcc -o arm ./test/sample.c -lARMSim
+	./arm ./test/Fibonacci.mem
+	mv data_out.mem Fibonacci_data_out.mem
+	./arm ./test/Array_Sum.mem
+	mv data_out.mem Array_Sum_data_out.mem
+	rm arm
 
 clean:
 	rm /usr/local/lib/libARMSim.a

@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     char* prog_mem_file; 
 
     if(argc < 2) {
-        printf("Incorrect number of arguments. Please invoke the simulator \n\t./myARMSim <input mem file> \n");
+        printf("Incorrect number of arguments. Please invoke the simulator with the mem file as an argument\n");
         exit(1);
     }
 
@@ -45,6 +45,6 @@ int main(int argc, char** argv) {
     run_armsim(var);
     write_data_memory(var);
 
-  return 1;
+  return 0;
 }
 

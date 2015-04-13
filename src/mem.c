@@ -31,13 +31,26 @@ void mem(armsimvariables* var)
 {
     if (var->is_datatrans)
     {
-        uint16_t offset = (var->instruction_word & 0x0FFF);
+        uint8_t immediate = 1 - ((var->instruction_word & 0x02000000) >> 25);
+        uint16_t offset;
+
+        if (immediate)
+        {
+            offset = (var->instruction_word & 0x0FFF);
+        }
+        else
+        {
+            var->register2 = (var->instruction_word & 0x0000000F);
+            var->operand2 = var->R[var->register2];
+            shift_operand2(var);
+            offset = var->operand2;
+        }
 
         if (var->store_true)         // STR instruction
         {
             write_word(var->MEM_HEAP, var->R[var->register1] + offset, var->R[var->register_dest]);
 #ifdef STATUS
-        printf("MEMORY : STORE TO ADDRESS 0x%x IN MEM VALUE 0x%x\n", var->R[var->register1], var->R[var->register_dest]);
+            printf("MEMORY : STORE TO ADDRESS 0x%x VALUE 0x%x\n", var->R[var->register1] + offset, var->R[var->register_dest]);
 #endif            
         }
 
@@ -45,14 +58,14 @@ void mem(armsimvariables* var)
         {
             var->R[var->register_dest] = read_word(var->MEM_HEAP, var->R[var->register1] + offset);
 #ifdef STATUS
-        printf("MEMORY : LOAD TO REGISTER R%zu VALUE 0x%x\n", var->register1, var->R[var->register_dest]);
+            printf("MEMORY : LOAD TO REGISTER R%zu VALUE 0x%x FROM MEM 0x%x\n", var->register_dest, var->R[var->register_dest], var->R[var->register1] + offset);
 #endif            
-        }
+        }        
     }
     else
     {
 #ifdef STATUS
-        printf("MEMORU : NO MEMORY OPERATION\n");
-#endif        
+        printf("MEMORY : NO MEMORY OPERATION\n");
+#endif   
     }
 }
