@@ -40,7 +40,7 @@ install:
 	rm *.a *.o
 	
 check:
-	gcc -o arm ARMSIM.c -lARMSim
+	gcc -o arm ./test/sample.c -lARMSim
 	./arm ./test/Fibonacci.mem
 	mv data_out.mem Fibonacci_data_out.mem
 	./arm ./test/Array_Sum.mem
