@@ -9,7 +9,7 @@ This is a Functional Simulator for ARM Processor. It was developed as a part of 
 - cd to the root directory of project
 - sudo make
 - sudo make install
-- sudi make check
+- sudo make check
 
 # EXECUTION
 Follow sample.c in ./test for an example.
