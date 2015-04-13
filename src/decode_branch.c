@@ -55,7 +55,7 @@ void decode_branch(armsimvariables* var)
 	else if (var->condition == 13 && (var->N || var->Z))		// BLE, either negative or zero
 		var->branch_true = 1;
 
-	else if (var->condition == 14 )				// Always
+	else if (var->condition == 14 )				// Unconditional
 		var->branch_true = 1;
 
 	else
