@@ -79,7 +79,7 @@ void execute_data_proc(armsimvariables* var)
         var->answer = var->operand1 - var->operand2;
         update_flags(var);
 #ifdef STATUS
-        printf("EXECUTE : Operation is : SUBTRACT\n");
+        printf("EXECUTE : Operation is : SUBTRACT with SET FLAG\n");
         printf("EXECUTE : SUBTRACT %zu and %zu\n", var->operand1, var->operand2);
 #endif  
     }
