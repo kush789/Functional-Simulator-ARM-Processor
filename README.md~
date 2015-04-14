@@ -15,5 +15,5 @@ This is a Functional Simulator for ARM Processor. It was developed as a part of 
 
 # Execution
 - cd to root directory of project
-- gcc -o arm ./test/ARMSIM.c -lARMSim    (link with lib ARMSim)
+- gcc -o arm ARMSIM.c -lARMSim    (link with lib ARMSim)
 - ./arm ./input.mem    (Provide mem file as argument)
